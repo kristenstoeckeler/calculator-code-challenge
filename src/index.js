@@ -16,11 +16,31 @@ import rootSaga from './redux/sagas'; // imports ./redux/sagas/index.js
 // Importing the Bootstrap CSS
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+
+const sagaMiddleware = createSagaMiddleware();
+
+const middlewareList =
+  process.env.NODE_ENV === "development"
+    ? [sagaMiddleware, logger]
+    : [sagaMiddleware];
+
+const store = createStore(
+  // tells the saga middleware to use the rootReducer
+  // rootSaga contains all of our other reducers
+  rootReducer,
+  // adds all middleware to our project including saga and logger
+  applyMiddleware(...middlewareList)
+);
+
+// tells the saga middleware to use the rootSaga
+// rootSaga contains all of our other sagas
+sagaMiddleware.run(rootSaga);
+
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider store={store}>
     <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+  </Provider>,
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function

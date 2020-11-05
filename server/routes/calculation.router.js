@@ -3,6 +3,9 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 
+router.get('/', async (req,res) => {
+  console.log('made it to server with GET request');
+});
 
 
 router.post('/', async (req, res) => {

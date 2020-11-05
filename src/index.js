@@ -1,8 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import App from './components/App/App';
 import reportWebVitals from './reportWebVitals';
+
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import createSagaMiddleware from 'redux-saga';
+import logger from 'redux-logger';
+
+// Importing the Bootstrap CSS
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(
   <React.StrictMode>

@@ -1,8 +1,9 @@
-import React from "react";
+import React from 'react';
 
 
 
-import Calculator from "../Calculator/Calculator";
+import Calculator from '../Calculator/Calculator';
+import Results from '../Results/Results';
 
 import './App.css';
 
@@ -11,6 +12,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <Calculator/>
+        <Results />
       </header>
     </div>
   );

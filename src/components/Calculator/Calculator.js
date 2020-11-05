@@ -157,8 +157,5 @@ class Calculator extends Component {
   }
 }
 
-const putReduxStateOnProps = (reduxStore) => ({
-  calculation: reduxStore.user,
-});
 
-export default connect(putReduxStateOnProps)(Calculator);
+export default connect()(Calculator);

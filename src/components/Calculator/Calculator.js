@@ -50,7 +50,28 @@ class Calculator extends Component {
     });
   };
 
+  calculateAnswer = () => {
+    console.log("in calculateAnswer");
+
+    let calculation = 0;
+
+    if (this.state.operator === "+") {
+      calculation = Number(this.state.valOne) + Number(this.state.valTwo);
+    } else if (this.state.operator === "-") {
+      calculation = Number(this.state.valOne) - Number(this.state.valTwo);
+    } else if (this.state.operator === "*") {
+      calculation = Number(this.state.valOne) * Number(this.state.valTwo);
+    } else {
+      calculation = Number(this.state.valOne) / Number(this.state.valTwo);
+    }
+
+    this.setState({
+      result: calculation,
+    });
+  };
+
   render() {
+    console.log('here is result:', this.state.result);
     return (
       <>
         <h1>Here is Calculator</h1>
@@ -98,19 +119,23 @@ class Calculator extends Component {
           <Row>
             <Col>
               <Form.Control
+                type="number"
                 onChange={(event) => this.setValOne(event, "valOne")}
               />
             </Col>
             <Col>
               <Form.Control
-                onChange={(event) => this.setValOne(event, "valTwo")}
+                type="number"
+                onChange={(event) => this.setValTwo(event, "valTwo")}
               />
             </Col>
           </Row>
         </Form>
 
         <Form className="button">
-          <Button variant="primary">Submit</Button>
+          <Button variant="primary" onClick={(event) => this.calculateAnswer()}>
+            Calculate
+          </Button>
         </Form>
       </>
     );

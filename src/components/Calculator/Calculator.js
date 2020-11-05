@@ -14,14 +14,41 @@ import './Calculator.css';
 
 
 class Calculator extends Component {
-    state = {
-        valOne: 0,
-        valTwo: 0,
-        operator: "?",
-        result: 0,
-    };
+  state = {
+    valOne: 0,
+    valTwo: 0,
+    operator: "?",
+    result: 0,
+  };
 
+  setOperator = (event) => {
+    console.log("here is target value", event.target.value);
+    this.setState({
+      operator: event.target.value,
+    });
+  };
 
+  setValOne = (event) => {
+    console.log(
+      "here is target value 1 & operator",
+      event.target.value,
+      this.state.operator
+    );
+    this.setState({
+      valOne: event.target.value,
+    });
+  };
+
+  setValTwo = (event) => {
+    console.log(
+      "here is target value 2 & operator",
+      event.target.value,
+      this.state.operator
+    );
+    this.setState({
+      valTwo: event.target.value,
+    });
+  };
 
   render() {
     return (
@@ -32,6 +59,8 @@ class Calculator extends Component {
             <Col>
               <Button
                 variant="primary"
+                value="+"
+                onClick={(event) => this.setOperator(event, "operator")}
               >
                 +
               </Button>
@@ -39,6 +68,8 @@ class Calculator extends Component {
             <Col>
               <Button
                 variant="primary"
+                value="-"
+                onClick={(event) => this.setOperator(event, "operator")}
               >
                 -
               </Button>
@@ -46,6 +77,8 @@ class Calculator extends Component {
             <Col>
               <Button
                 variant="primary"
+                value="*"
+                onClick={(event) => this.setOperator(event, "operator")}
               >
                 *
               </Button>
@@ -53,6 +86,8 @@ class Calculator extends Component {
             <Col>
               <Button
                 variant="primary"
+                value="/"
+                onClick={(event) => this.setOperator(event, "operator")}
               >
                 /
               </Button>
@@ -62,18 +97,20 @@ class Calculator extends Component {
         <Form className="inputs">
           <Row>
             <Col>
-              <Form.Control/>
+              <Form.Control
+                onChange={(event) => this.setValOne(event, "valOne")}
+              />
             </Col>
             <Col>
-              <Form.Control/>
+              <Form.Control
+                onChange={(event) => this.setValOne(event, "valTwo")}
+              />
             </Col>
           </Row>
         </Form>
 
         <Form className="button">
-          <Button variant="primary">
-            Submit
-          </Button>
+          <Button variant="primary">Submit</Button>
         </Form>
       </>
     );

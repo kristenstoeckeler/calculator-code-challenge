@@ -1,18 +1,17 @@
 import axios from "axios";
-import { put, takeLatest, actionChannel } from "redux-saga/effects";
+import { takeLatest, put } from "redux-saga/effects";
 
 // worker Saga: will be fired on "POST_CALCULATION" actions
 function* postCalculation(action) {
   console.log('in postCalculation saga', action.payload);
-  
   try {
-    //axios.post goes here
+    yield axios.post(`/calc`, action.payload);
   } catch (error) {
-    //log the catch
+    console.log('Calculation POST failed', error);
   }
 }
 
-function* calculationSaga(action) {
+function* calculationSaga() {
   yield takeLatest("POST_CALCULATION", postCalculation);
 }
 

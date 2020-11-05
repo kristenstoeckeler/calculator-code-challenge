@@ -6,6 +6,7 @@ function* postCalculation(action) {
   console.log('in postCalculation saga', action.payload);
   try {
     yield axios.post(`/calc`, action.payload);
+    yield put ({type: 'FETCH_RESULTS'});
   } catch (error) {
     console.log('Calculation POST failed', error);
   }

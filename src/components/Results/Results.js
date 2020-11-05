@@ -4,6 +4,9 @@ import React, { Component } from "react";
 //importing Connect for retrieving reduxStore on state
 import { connect } from "react-redux";
 
+
+import "./Results.css";
+
 class Results extends Component {
   state = {
     // valOne: this.props.calculation.val1,
@@ -22,8 +25,32 @@ class Results extends Component {
   render() {
     return (
       <>
-        <h1>Here are Results</h1>
-        <ul></ul>
+        <h3>Result:</h3>
+        {this.props.results[0] ? (
+          <p>
+            {this.props.results[0].val1}
+
+            {this.props.results[0].operator}
+
+            {this.props.results[0].val2} = {this.props.results[0].result}
+          </p>
+        ) : (
+          ""
+        )}
+
+        <h4>Here are the most recent calculations made:</h4>
+        <ul>
+          {this.props.results.map((equation) => {
+            return (
+              <>
+                <li key={equation.id}>
+                  {equation.val1} {equation.operator} {equation.val2} ={" "}
+                  {equation.result}
+                </li>
+              </>
+            );
+          })}
+        </ul>
       </>
     );
   }
@@ -32,7 +59,7 @@ class Results extends Component {
 
 
 const putReduxStateOnProps = (reduxStore) => ({
-  calculation: reduxStore.user,
+  results: reduxStore.results
 });
 
 export default connect(putReduxStateOnProps)(Results);

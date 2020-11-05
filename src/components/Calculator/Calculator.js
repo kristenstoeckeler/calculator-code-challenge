@@ -12,14 +12,14 @@ import Row from "react-bootstrap/Row";
 
 import './Calculator.css';
 
-
 class Calculator extends Component {
   state = {
-    valOne: 0,
-    valTwo: 0,
+    valOne: '',
+    valTwo: '',
     operator: "?",
     result: 0,
   };
+
 
   componentDidMount() {
     this.setState({
@@ -60,6 +60,7 @@ class Calculator extends Component {
   };
 
   calculateAnswer = () => {
+
     console.log("in calculateAnswer");
 
     let calculation = 0;
@@ -82,14 +83,23 @@ class Calculator extends Component {
       type: "POST_CALCULATION",
       payload: { state: this.state, result: calculation }
     });
-  };
 
+    this.resetInputs();
+  }
+
+  resetInputs = () => {
+    this.setState({
+      valOne: '',
+      valTwo: '',
+    });
+  }
 
   render() {
     console.log("here is result:", this.state.result);
     return (
       <>
-        <h1>Here is Calculator</h1>
+        <h1>Calculator</h1>
+        <p>Make a calculation!</p>
         <Form className="button">
           <Row>
             <Col>
@@ -134,12 +144,14 @@ class Calculator extends Component {
           <Row>
             <Col>
               <Form.Control
+                value={this.state.valOne}
                 type="number"
                 onChange={(event) => this.setValOne(event, "valOne")}
               />
             </Col>
             <Col>
               <Form.Control
+                value={this.state.valTwo}
                 type="number"
                 onChange={(event) => this.setValTwo(event, "valTwo")}
               />

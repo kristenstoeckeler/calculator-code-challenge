@@ -5,9 +5,9 @@ import { takeLatest, put } from "redux-saga/effects";
 function* fetchResults(action) {
   console.log("in fetchResults saga");
   try {
-    yield axios.get(`/calc`);
-    console.log('here is response.data');
-    yield put({type: 'RESULTS_REDUCER'});
+    const response = yield axios.get(`/calc`);
+    console.log('here is response.data', response.data);
+    yield put({type: 'RESULT_REDUCER', payload: response.data});
   } catch (error) {
     console.log("Results GET failed", error);
   }

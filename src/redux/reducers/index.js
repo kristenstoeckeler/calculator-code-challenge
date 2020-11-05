@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import calculations from "./calculationReducer";
+import results from './resultReducer';
 
 
 // rootReducer is the primary reducer for this project
@@ -9,7 +9,7 @@ import calculations from "./calculationReducer";
 // This makes a bigger object for the store, with the objects from all the reducers.
 
 const rootReducer = combineReducers({
-    calculations
+    results
 });
 
 export default rootReducer;

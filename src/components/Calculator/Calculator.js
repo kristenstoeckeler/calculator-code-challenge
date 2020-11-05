@@ -21,6 +21,15 @@ class Calculator extends Component {
     result: 0,
   };
 
+  componentDidMount() {
+    this.setState({
+      operator: this.state.operator,
+      valOne: this.state.valOne,
+      valTwo: this.state.valTwo,
+      result: this.state.result,
+    });
+  }
+
   setOperator = (event) => {
     console.log("here is target value", event.target.value);
     this.setState({
@@ -68,10 +77,16 @@ class Calculator extends Component {
     this.setState({
       result: calculation,
     });
+
+    this.props.dispatch({
+      type: "POST_CALCULATION",
+      payload: { state: this.state, result: calculation }
+    });
   };
 
+
   render() {
-    console.log('here is result:', this.state.result);
+    console.log("here is result:", this.state.result);
     return (
       <>
         <h1>Here is Calculator</h1>
@@ -142,5 +157,8 @@ class Calculator extends Component {
   }
 }
 
+const putReduxStateOnProps = (reduxStore) => ({
+  calculation: reduxStore.user,
+});
 
-export default Calculator;
+export default connect(putReduxStateOnProps)(Calculator);

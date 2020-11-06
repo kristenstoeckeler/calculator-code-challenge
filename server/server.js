@@ -1,29 +1,30 @@
+//requiring express and storing instance in express variable
 const express = require('express');
 require('dotenv').config();
 
-
+//declaring app variable to store instance of express
 const app = express();
 const bodyParser = require('body-parser');
 
-//Route includes
+//requiring calculation.router script and storing instance to calcRouter variable
 const calcRouter = require('./routes/calculation.router');
 
-// Body parser middleware
+// Body parser middleware, to parse incoming requests 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-/* Routes */
+//routes
 app.use('/calc', calcRouter);
 
-// Serve static files
+//serving static files
 app.use(express.static('build'));
 
-// App Set //
+//declaring Port
 const PORT = process.env.PORT || 5000;
 
 
-/** Listen * */
+//express app.listen function, listening to port 5000
 app.listen(PORT, () => {
     console.log(`Listening on port: ${PORT}`);
 });

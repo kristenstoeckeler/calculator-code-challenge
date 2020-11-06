@@ -1,7 +1,9 @@
+
 const pg = require("pg");
 const url = require("url");
 
 let config = {};
+
 
 if (process.env.DATABASE_URL) {
   const params = url.parse(process.env.DATABASE_URL);
@@ -38,4 +40,5 @@ pool.on("error", (err) => {
   process.exit(-1);
 });
 
+//exporting pool
 module.exports = pool;

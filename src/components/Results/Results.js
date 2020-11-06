@@ -1,31 +1,26 @@
 //importing React and Component for class Component
 import React, { Component } from "react";
 
-//importing Connect for retrieving reduxStore on state
+//importing Connect for connecting to Redux and Store
 import { connect } from "react-redux";
 
-
+//importing style file
 import "./Results.css";
 
+//class component
 class Results extends Component {
-  state = {
-    // valOne: this.props.calculation.val1,
-    // valTwo: this.props.calculation.val2,
-    // operator: this.props.calculation.operator,
-    // result: this.props.calculation.result,
-  };
-
+//dispatching to resultSaga to retrieve data from database for initial render
   componentDidMount() {
     this.props.dispatch({ 
         type: "FETCH_RESULTS"
     });
   }
 
-
   render() {
     return (
       <>
         <h3>Result:</h3>
+        {/* conditional ternary operator to conditionally render data from props. used to circumvent async problem*/}
         {this.props.results[0] ? (
           <p>
             {this.props.results[0].val1}
@@ -38,8 +33,9 @@ class Results extends Component {
           ""
         )}
 
-        <h4>Here are the most recent calculations made:</h4>
+        <h3>Here are the most recent calculations made:</h3>
         <ul>
+        {/* mapping over results array from props to render all data from GET request to database */}
           {this.props.results.map((equation) => {
             return (
               <>
@@ -57,9 +53,10 @@ class Results extends Component {
 }
 
 
-
+//retrieving props from reduxStore
 const putReduxStateOnProps = (reduxStore) => ({
   results: reduxStore.results
 });
 
+//exporting Results component and connecting to Redux
 export default connect(putReduxStateOnProps)(Results);

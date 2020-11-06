@@ -1,70 +1,58 @@
-//importing React and Component for class Component 
+//importing React and Component for class component from React
 import React, { Component } from "react";
 
-//importing Connect for retrieving reduxStore on state
+//importing Connect for dispatching to Redux
 import { connect } from "react-redux";
 
-//will use these for calculator form
+//imports from React-Bootstrap for form
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 
+//importing style file
 import './Calculator.css';
 
+//class component
 class Calculator extends Component {
+  //setting state
   state = {
-    valOne: '',
-    valTwo: '',
-    operator: "?",
+    valOne: "",
+    valTwo: "",
+    operator: "",
     result: 0,
   };
 
-
-  componentDidMount() {
-    this.setState({
-      operator: this.state.operator,
-      valOne: this.state.valOne,
-      valTwo: this.state.valTwo,
-      result: this.state.result,
-    });
-  }
-
+  //function capturing value from operator buttons on state
   setOperator = (event) => {
-    console.log("here is target value", event.target.value);
+    //setting state with value from button
     this.setState({
       operator: event.target.value,
     });
   };
 
+  //function capturing value from first number input on state
   setValOne = (event) => {
-    console.log(
-      "here is target value 1 & operator",
-      event.target.value,
-      this.state.operator
-    );
+    //setting state with value from first number
     this.setState({
       valOne: event.target.value,
     });
   };
 
+  //function capturing value from second number input on state
   setValTwo = (event) => {
-    console.log(
-      "here is target value 2 & operator",
-      event.target.value,
-      this.state.operator
-    );
+    //setting state with value from first number
     this.setState({
       valTwo: event.target.value,
     });
   };
 
+  //function calculating result of equation
   calculateAnswer = () => {
-
-    console.log("in calculateAnswer");
-
+    //declaring local variable for result
     let calculation = 0;
 
+    //if-then statement to determine operator and perform corresponding mathematical procedure on values 
     if (this.state.operator === "+") {
       calculation = Number(this.state.valOne) + Number(this.state.valTwo);
     } else if (this.state.operator === "-") {
@@ -74,28 +62,32 @@ class Calculator extends Component {
     } else {
       calculation = Number(this.state.valOne) / Number(this.state.valTwo);
     }
-
+    
+    //setting result to state, may not be necessary on account of dispatching calculation variable below??
     this.setState({
       result: calculation,
     });
 
+    //dispatching state and calculation variable to calculationSaga
     this.props.dispatch({
       type: "POST_CALCULATION",
-      payload: { state: this.state, result: calculation }
+      payload: { state: this.state, result: calculation },
     });
 
+    //calling resetInputs function
     this.resetInputs();
-  }
+  };
 
+  //function to reset state to null values to empty inputs
   resetInputs = () => {
     this.setState({
-      valOne: '',
-      valTwo: '',
+      valOne: "",
+      valTwo: "",
+      operator: "",
     });
-  }
+  };
 
   render() {
-    console.log("here is result:", this.state.result);
     return (
       <>
         <h1>Calculator</h1>
@@ -106,6 +98,7 @@ class Calculator extends Component {
               <Button
                 variant="primary"
                 value="+"
+                //onClick event runs setOperator function with designated value
                 onClick={(event) => this.setOperator(event, "operator")}
               >
                 +
@@ -115,6 +108,7 @@ class Calculator extends Component {
               <Button
                 variant="primary"
                 value="-"
+                //onClick event runs setOperator function with designated value
                 onClick={(event) => this.setOperator(event, "operator")}
               >
                 -
@@ -124,6 +118,7 @@ class Calculator extends Component {
               <Button
                 variant="primary"
                 value="*"
+                //onClick event runs setOperator function with designated value
                 onClick={(event) => this.setOperator(event, "operator")}
               >
                 *
@@ -133,6 +128,7 @@ class Calculator extends Component {
               <Button
                 variant="primary"
                 value="/"
+                //onClick event runs setOperator function with designated value
                 onClick={(event) => this.setOperator(event, "operator")}
               >
                 /
@@ -146,21 +142,24 @@ class Calculator extends Component {
               <Form.Control
                 value={this.state.valOne}
                 type="number"
+                //onChange event runs setValOne function with designated value
                 onChange={(event) => this.setValOne(event, "valOne")}
               />
             </Col>
+            <Col>{this.state.operator}</Col>
             <Col>
               <Form.Control
                 value={this.state.valTwo}
                 type="number"
+                // onChange event runs setValTwo function with designated value
                 onChange={(event) => this.setValTwo(event, "valTwo")}
               />
             </Col>
           </Row>
         </Form>
-
         <Form className="button">
-          <Button variant="primary" onClick={(event) => this.calculateAnswer()}>
+          {/*onClick event runs calculateAnswer function with values already set to state */}
+          <Button variant="primary" onClick={() => this.calculateAnswer()}>
             Calculate
           </Button>
         </Form>
@@ -169,5 +168,5 @@ class Calculator extends Component {
   }
 }
 
-
+//exporting Calculator component and connecting to Redux
 export default connect()(Calculator);

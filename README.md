@@ -9,10 +9,10 @@ _Duration: 5-hour Sprint_
 
 This calculator allows the user to make simple calculations. In addition, the application displays the calculations of other users as well.
 
-To see the fully functional site, please visit: https://https://radiant-atoll-82316.herokuapp.com/
+To see the fully functional site, please visit: https://radiant-atoll-82316.herokuapp.com/
 
 
-## Screen Shots
+## Screen Shots 
 
 ![Homepage](/public/screenshot.jpg)
 

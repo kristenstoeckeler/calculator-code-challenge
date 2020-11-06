@@ -1,20 +1,23 @@
 import axios from "axios";
 import { takeLatest, put } from "redux-saga/effects";
 
-// worker Saga: will be fired on "POST_CALCULATION" actions
+// generator function will be fired when "FETCH_RESULTS" actions reach worker Saga below
 function* fetchResults(action) {
-  console.log("in fetchResults saga");
+//sending axios GET request to /calc
   try {
+    //declaring GET request to /calc as variable for use in Reducer dispatch
     const response = yield axios.get(`/calc`);
-    console.log('here is response.data', response.data);
+    //sending to resultsReducer the results of GET request as response.data
     yield put({type: 'RESULT_REDUCER', payload: response.data});
   } catch (error) {
     console.log("Results GET failed", error);
   }
 }
 
+// worker Saga will be fired on "FETCH_RESULTS" actions
 function* resultSaga() {
   yield takeLatest("FETCH_RESULTS", fetchResults);
 }
 
+//exporting resultSaga
 export default resultSaga;

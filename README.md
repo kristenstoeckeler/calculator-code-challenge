@@ -19,7 +19,7 @@ To see the fully functional site, please visit: https://https://radiant-atoll-82
 
 ## Prerequisites
 
-The following software is required to install Shuttle:
+The following software is required to install Calculator Code Challenge:
 
 - [Node.js](https://nodejs.org/en/)
 - [PostgreSQL](https://www.postgresql.org/download/)
